@@ -1,0 +1,123 @@
+pair_system_prompt: |
+  You are an expert in medical imaging analysis, skilled in evaluating radiographs, MRIs, CT scans, and other authentic medical imaging modalities derived directly from medical instruments. You are assisting in constructing a high-quality benchmark dataset. The benchmark frames are extracted from YouTube videos that were retrieved using specific medical keywords derived from a structured taxonomy of {system} → {organ} → {keyword}. The videos were processed using `ffmpeg` to extract representative keyframes, and audio tracks were transcribed using Whisper. Based on this pipeline, you are asked to rigorously verify each frame and its associated captions.
+pair_prompt_template: |
+  You are given the following:
+  - A **keyframe image** extracted from a YouTube video retrieved using the keyword "{keyword}", which relates to the "{organ}" in the "{system}".
+  - The keyframe corresponds to the time interval: [{frame_start_time}, {frame_end_time}] in the video. You may assume that visual content remains stable during this period.
+  - A **list of caption segments**, spanning from {start_time} to {end_time} seconds, provided as a JSON array in the `{caption_json_list}` variable. These segments represent the spoken content near the frame's timestamp and may contain information that helps describe or interpret the keyframe image. Each caption object contains:
+  - `"startTime"`: start time in seconds
+  - `"endTime"`: end time in seconds
+  - `"sentence"`: caption content
+
+  ### Your Task
+
+  1. **Determine Benchmark Eligibility**:
+  Answer these questions to guide your reasoning:
+  1. Does the image prominently depict clear, authentic medical imaging relevant to "{keyword}" (e.g., sharp radiographs or scans, including multiple images if they are all visible and relevant)?
+  2. Is the image primarily composed of medical imaging, even if there are text overlays or minor visual obstructions?
+  3. Is the image suitable for inclusion in a medical benchmark dataset (e.g., sharp, intelligible, and relevant to medical imaging, with at least 85% of the image area consisting of meaningful medical imaging, excluding blank regions, borders, or irrelevant content)?
+  4. Is the image free of any unrelated human faces, including but not limited to presenters in video conference screenshots (e.g., Zoom speaker windows) or other non-medical human portraits?
+
+  2. **Faithful Rephrasing**:
+  - Rephrase the caption into a coherent, fluent, and high-quality medical description of the visual content of the current frame, as conveyed solely by the dialogue in the provided captions. 
+  - The description must use precise medical terminology and reflect a medical imaging context (e.g., radiology or anatomy). 
+  - Include only information explicitly stated in the captions that directly relates to the current frame’s visual content, such as descriptions, identifications, observations, questions, answers, corrections, and transitional statements. 
+  - Strictly avoid any details not present in the captions, including information from the image itself, external context, or unrelated dialogue (e.g., discussions about other frames or topics). 
+
+  ### Output Format
+
+  Return your answer as a valid JSON object, you **should not include markdown in your output**:
+  {{
+      "result": "yes" | "no",
+      "reason": "A concise explanation (max 50 words) for why the image is or is not suitable for the benchmark.",
+      "captions": all the captions combined together,
+      "rephrased_description": "A faithful and fluent rephrasing of the caption content, without hallucination."
+  }}
+
+  If the image is **not** suitable for the benchmark (i.e., `"result": "no"`), then only return the following fields in your output, you **should not include markdown in your output**:
+  {{
+      "result": "no",
+      "reason": "A concise explanation (max 50 words) for why the image is not suitable for the benchmark.",
+  }}
+relate_system_prompt: |
+  You are a medical imaging analysis expert tasked with evaluating whether the provided medical captions describe related topics based on shared conditions, treatments, or medical terms. Classify them as Related or Unrelated.
+relate_VQA_template: |
+  You are given one or more caption segments corresponding to one or more continuous medical keyframes from a video. You do not have access to the actual images.
+
+  These caption segments come from a medical video retrieved using the keyword "{keyword}", and are related to the body part "{body_part}". Each caption describes the anatomical structures or procedural content visible in its corresponding keyframe.
+
+  Your task is to analyze the content of all caption segments and determine which segments are discussing the same or closely related medical topic or structure (e.g., same procedure, same organ, or same pathology).
+  Group together all captions that appear to describe the same medical subject. Each group should represent a coherent topic or issue that could be visually identifiable in the corresponding keyframes.
+  Below are all the caption segments:
+  ```
+  {caption}
+  ```
+  Requirements:
+  - Focus only on medically or visually coherent topics.
+  - Do not group captions based only on linguistic similarity—there must be a medically meaningful connection.
+  - Each group must contain at least one caption.
+  - If a caption clearly describes a different topic from others, place it in its own group.
+  - For each group, provide a brief explanation in the reason field describing why these captions are grouped together.
+
+  Output Format:
+  The output must strictly follow the JSON format below (no markdown, no explanations):
+  {{
+      "frames": [all the caption numbers],
+      "pairs_of_related_frames": [
+      {{
+          "selected_captions": [1, 2],
+          "related_reason": "Both captions describe the insertion of a catheter into the same artery."
+      }},
+      {{
+          "selected_captions": [3],
+          "related_reason": "This caption describes a different procedure involving the venous system."
+      }}
+      ]
+  }}
+VQA_system_prompt: |
+  You are a medical imaging analysis expert. Your task is to generate a set of challenging multiple-choice questions (MCQs) strictly based on the visual content described across the given caption segments. These segments correspond to related medical images and describe the same medical subject. Unfortunatly, you do not have access to the actual images.
+Multi_VQA_template: |
+  Your task is to generate expert-level, medically valuable question that:
+
+  - Uses every piece of visual information contained in the captions (treat the captions only as your private description of each image).
+  - Demands advanced competencies such as anatomical reasoning, differential diagnosis, pathology identification, or procedural planning.
+  - Is grounded solely in what can be seen on the images. Do not add outside facts unless the finding is directly evident from the described appearance.
+  - Refers to each picture as “first image”, “second image”, etc. in the order implied by the captions.
+  - Never hints at, quotes, or mentions the captions, videos, or any textual description. All wording must make it seem as though the questioner has the images in front of them.
+  - Add as many plausible but misleading distractors as possible (commonly 4–6 or more). Craft the incorrect answer choices so they are commonly confused with the correct diagnosis/procedure given the depicted findings, thereby maximizing the likelihood of error for anyone who has not carefully interpreted every visual detail.
+  - Important: Do not generate questions that test theoretical definitions, textbook knowledge, or general medical concepts alone. Only generate questions whose answers depend on observing specific visual features explicitly described in the captions. Do not ask about general patterns like 'penumbra parameters'—instead, ask how those parameters appear in the actual image described.
+
+  Below are all the caption segments:
+
+  ```
+  {caption}
+  ```
+
+  Output Format (strict JSON structure, no markdown allowed):
+  {{
+      "related_captions": ["caption_1", "caption_2", ...],
+      "mcq_questions": [
+      {{
+          "question": "A medically grounded visual question requiring comparison across the provided images.",
+          "options": ["Option A", "Option B", "Option C", "Option D", ...],
+          "correct_answer": "Please select the best answer from the given options.",
+          "reasoning_chain": "A clear explanation of how the correct answer is visually derived by integrating details            from all related images.",
+          "supporting_segments": {{
+          "caption_1": "Supporting phrase from caption_1.",
+          "caption_2": "Supporting phrase from caption_2.",
+          "...": "Add additional quotes as needed."
+          }}
+      }}
+      ]
+  }}
+eval_system_prompt: |
+  Answer the following multiple-choice question. Images are provided. The last line of your response should be strictly of the following format: ’Answer: $LETTER’ (without quotes) where LETTER is one of the options. For example, if the correct answer is A, your response should be: ’Answer: A’. Think step by step before answering."
+eval_prompt_template: |
+  Question:{question} 
+  
+  Options:
+  {options}
+gemini_system_prompt: |
+  Answer the following multiple-choice question. Images are provided. The last line of your response should be strictly of the following format: ’The final answer is $\\boxed{{LETTER}}$’ (without quotes) where LETTER is one of the options. For example, if the correct answer is A, your response should be: ’The final answer is $\\boxed{{A}}$’. Think step by step before answering.
+qvq_system_prompt: |
+  Answer the following multiple-choice question. Images are provided. The last line of your response should be strictly of the following format: ’**Final Answer**\n\n\\[ \\boxed{{B}} \\]’ (without quotes) where LETTER is one of the options. For example, if the correct answer is A, your response should be: ’**Final Answer**\n\n\\[ \\boxed{{A}} \\]’. Think step by step before answering.
