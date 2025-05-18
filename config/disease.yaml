@@ -1,0 +1,227 @@
+categories:
+  - system: central nervous system
+    body_part:
+    - organ: brain
+      keywords:
+      - stroke CT
+      - brain tumor MRI
+      - cerebral hemorrhage CT
+      - epilepsy EEG imaging
+      - traumatic brain injury CT
+    - organ: spinal cord
+      keywords:
+      - spinal cord injury MRI
+      - disc herniation MRI
+      - spinal stenosis CT
+      - myelitis MRI
+
+  - system: respiratory system
+    body_part:
+    - organ: lung
+      keywords:
+      - pneumonia chest radiograph
+      - lung cancer CT
+      - pulmonary embolism CT angiography
+      - chronic obstructive pulmonary disease CT
+    - organ: trachea bronchi
+      keywords:
+      - bronchial asthma bronchography
+    - organ: pleura
+      keywords:
+      - pleural effusion ultrasound
+
+  - system: circulatory system
+    body_part:
+    - organ: heart
+      keywords:
+      - coronary artery disease angiography
+      - heart failure echocardiography
+      - myocardial infarction CT
+      - cardiomyopathy MRI
+    - organ: pulmonary arteries
+      keywords:
+      - pulmonary embolism CT angiography
+      - pulmonary hypertension CT
+    - organ: aorta
+      keywords:
+      - aortic aneurysm CT
+      - aortic dissection MR angiography
+
+  - system: digestive system
+    body_part:
+    - organ: esophagus
+      keywords:
+      - esophageal cancer CT
+      - gastroesophageal reflux esophagram
+      - esophageal stricture endoscopic ultrasound
+    - organ: stomach
+      keywords:
+      - gastric cancer CT
+      - peptic ulcer gastroscopy
+      - gastritis upper gastrointestinal series
+    - organ: liver
+      keywords:
+      - liver cirrhosis CT
+      - hepatocellular carcinoma MRI
+      - hepatitis ultrasound
+    - organ: pancreas
+      keywords:
+      - pancreatic cancer CT
+      - acute pancreatitis CT
+      - chronic pancreatitis MRCP
+    - organ: gallbladder
+      keywords:
+      - gallstones ultrasound
+      - cholecystitis HIDA scan
+      - gallbladder cancer CT
+    - organ: small intestine
+      keywords:
+      - Crohn's disease MRI enterography
+      - small bowel obstruction CT
+      - intestinal bleeding capsule endoscopy
+    - organ: large intestine
+      keywords:
+      - colorectal cancer colonoscopy
+      - diverticulitis CT
+      - ulcerative colitis barium enema
+
+  - system: urinary system
+    body_part:
+    - organ: kidneys
+      keywords:
+      - kidney stones CT
+      - renal cell carcinoma MRI
+      - pyelonephritis ultrasound
+    - organ: ureters
+      keywords:
+      - ureteral stones CT urography
+      - ureteral stricture MR urography
+    - organ: bladder
+      keywords:
+      - bladder cancer cystoscopy
+      - urinary tract infection ultrasound
+      - bladder stones CT
+    - organ: urethra
+      keywords:
+      - urethral stricture urethrography
+      - urethral injury CT urethrography
+
+  - system: reproductive system
+    body_part:
+    - organ: testes
+      keywords:
+      - testicular cancer ultrasound
+      - testicular torsion Doppler ultrasound
+      - epididymitis ultrasound
+    - organ: prostate
+      keywords:
+      - prostate cancer MRI
+      - benign prostatic hyperplasia TRUS
+      - prostatitis pelvic CT
+    - organ: penis
+      keywords:
+      - erectile dysfunction Doppler ultrasound
+      - Peyronie's disease MRI
+    - organ: ovaries
+      keywords:
+      - ovarian cyst ultrasound
+      - ovarian cancer MRI
+      - polycystic ovary syndrome ultrasound
+    - organ: uterus
+      keywords:
+      - endometrial cancer MRI
+      - uterine fibroids ultrasound
+      - adenomyosis pelvic MRI
+    - organ: cervix
+      keywords:
+      - cervical cancer MRI
+      - cervical dysplasia colposcopy
+    - organ: vagina
+      keywords:
+      - vaginal cancer MRI
+      - vaginal prolapse transvaginal ultrasound
+
+  - system: endocrine system
+    body_part:
+    - organ: thyroid
+      keywords:
+      - thyroid nodule ultrasound
+      - thyroid cancer scintigraphy
+      - hyperthyroidism neck CT
+    - organ: parathyroid
+      keywords:
+      - parathyroid adenoma scintigraphy
+      - hyperparathyroidism ultrasound
+    - organ: adrenal glands
+      keywords:
+      - adrenal adenoma CT
+      - pheochromocytoma MRI
+      - Cushing's syndrome adrenal scintigraphy
+    - organ: pancreas (endocrine)
+      keywords:
+      - insulinoma CT
+      - pancreatic neuroendocrine tumor MRI
+    - organ: pituitary gland
+      keywords:
+      - pituitary adenoma MRI
+      - acromegaly dynamic MRI
+    - organ: hypothalamus
+      keywords:
+      - hypothalamic tumor MRI
+      - hypopituitarism functional MRI
+
+  - system: musculoskeletal system
+    body_part:
+    - organ: bones
+      keywords:
+      - osteoporosis DEXA
+      - bone fracture radiograph
+      - osteomyelitis MRI
+    - organ: joints
+      keywords:
+      - osteoarthritis radiograph
+      - rheumatoid arthritis MRI
+      - joint effusion ultrasound
+    - organ: skeletal muscles
+      keywords:
+      - muscle tear MRI
+      - myositis ultrasound
+      - muscular dystrophy EMG imaging
+    - organ: spine
+      keywords:
+      - disc herniation MRI
+      - spinal stenosis CT
+      - spondylolisthesis radiograph
+
+  - system: auxiliary systems and tissues
+    body_part:
+    - organ: eyes
+      keywords:
+      - glaucoma OCT
+      - retinal detachment ultrasound
+      - macular degeneration fundus photography
+    - organ: ears
+      keywords:
+      - otitis media temporal bone CT
+      - hearing loss brain MRI
+    - organ: skin
+      keywords:
+      - melanoma confocal microscopy
+      - skin cancer dermatologic ultrasound
+    - organ: lymph nodes
+      keywords:
+      - lymphoma CT
+      - lymphadenitis ultrasound
+    - organ: soft tissues
+      keywords:
+      - soft tissue sarcoma MRI
+      - lipoma ultrasound
+    - organ: salivary glands
+      keywords:
+      - salivary gland tumor ultrasound
+      - sialadenitis sialography
+    - organ: breast
+      keywords:
+      - breast cancer mammography
+      - fibroadenoma ultrasound
+      - breast cyst MRI
