@@ -1,0 +1,13 @@
+numpy
+tqdm
+requests
+openai
+azure-ai-inference
+azure-core
+google-generativeai
+anthropic
+pyyaml
+whisper
+torch
+opencv-python-headless
+pillow
