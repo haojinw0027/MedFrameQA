@@ -2,7 +2,7 @@
 
 
 <div align="center">
-  <a href="https://github.com/haojinw0027/MedFrameQA#"><img src="https://img.shields.io/static/v1?label=MedFrameQA Code&message=Github&color=blue&logo=github-pages"></a>  
+  <a href="https://github.com/haojinw0027/MedFrameQA#"><img src="https://img.shields.io/static/v1?label=Code&message=Github&color=blue&logo=github-pages"></a>  
   <a href="https://ucsc-vlaa.github.io/MedFrameQA/"><img src="https://img.shields.io/static/v1?label=Project%20Page&message=Github&color=blue&logo=github-pages"></a>  
   <a href="https://huggingface.co/datasets/SuhaoYu1020/MedFrameQA"><img src="https://img.shields.io/static/v1?label=MedFrameQA&message=HF&color=yellow"></a>  
   <a href="https://arxiv.org/abs/2505.16964"><img src="https://img.shields.io/static/v1?label=Paper&message=Arxiv:MedFrameQA&color=red&logo=arxiv"></a>  
